@@ -42,7 +42,10 @@ void updateIcon() {
 } //updateIcon()
 
 void startTimer() {
-  Timer(Duration(milliseconds: 10), randomNumber);
+  Timer.periodic(
+    Duration(seconds: 5),
+    (randomNumber) {},
+  );
 }
 
 int number = 1;
