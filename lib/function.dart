@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'constant.dart';
-import 'dart:math';
 import 'package:audioplayers/audio_cache.dart';
-import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 
 void toast({String message}) {
@@ -34,26 +32,14 @@ void pauseMusic() {
 }
 
 void updateIcon() {
-  startTimer();
   (selectedIcon == kPlayIcon)
       ? selectedIcon = kPauseIcon
       : selectedIcon = kPlayIcon;
   (selectedIcon == kPlayIcon) ? pauseMusic() : playMusic();
 } //updateIcon()
 
-void startTimer() {
-  Timer.periodic(
-    Duration(seconds: 5),
-    (randomNumber) {},
-  );
+int counter = 1;
+void numberOfPhoto() {
+  counter++;
+  if (counter == 13) counter = 1;
 }
-
-int number = 1;
-void randomNumber() {
-  int n = number;
-  number = Random().nextInt(4) + 1;
-  while (n == number) {
-    number = Random().nextInt(4) + 1;
-  }
-}
-//randomNumber()

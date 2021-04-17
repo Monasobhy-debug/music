@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'constant.dart';
 import 'function.dart';
 import 'playButton.dart';
+import 'dart:async';
 
 class RandomPictures extends StatefulWidget {
   @override
@@ -11,6 +12,21 @@ class RandomPictures extends StatefulWidget {
 class _RandomPicturesState extends State<RandomPictures> {
   Color kRepeatColor = KInactiveIconColor;
   Color kShuffleColor = KInactiveIconColor;
+
+  Timer timer;
+  void startTimer() {
+    Timer.periodic(
+      Duration(seconds: 2),
+      (timer) {
+        if (selectedIcon == kPauseIcon) {
+          setState(() {
+            numberOfPhoto();
+          });
+        } else
+          timer.cancel();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +38,7 @@ class _RandomPicturesState extends State<RandomPictures> {
             Container(
               height: 500,
               child: Image.asset(
-                'images/photo ($number).jpg',
+                'images/photo ($counter).jpg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -43,7 +59,7 @@ class _RandomPicturesState extends State<RandomPictures> {
                     onPressed: () {
                       setState(() {
                         toast(message: 'You pressed previous ');
-                        randomNumber();
+                        numberOfPhoto();
                       });
                     },
                     icon: Icon(kPreviousIcon),
@@ -53,7 +69,6 @@ class _RandomPicturesState extends State<RandomPictures> {
                     setState(() {
                       updateIcon();
                       startTimer();
-                      // playMusic();
                     });
                   },
                   childIcon: Icon(selectedIcon, color: kWhiteColor),
@@ -62,7 +77,7 @@ class _RandomPicturesState extends State<RandomPictures> {
                     onPressed: () {
                       setState(() {
                         toast(message: 'You pressed Next ');
-                        randomNumber();
+                        numberOfPhoto();
                       });
                     },
                     icon: Icon(kNextIcon),
